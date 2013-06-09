@@ -24,22 +24,5 @@ module AsciiPainter
       tokens = tokenizer.extract_tokens(command)
       lexer.analyse(tokens)
     end
-
-    def analyse_tokens(tokens)
-
-    end
-
-    def parse_command(command)
-      # nothing here yet :)
-    end
-
-    def show_contents_command
-      AsciiPainter::Commands::ShowContents.new
-    end
-
-    def terminate_session_command
-      AsciiPainter::Commands::TerminateSession.new
-    end
-
   end
 end

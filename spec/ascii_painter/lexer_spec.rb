@@ -3,18 +3,34 @@ require "spec_helper"
 describe AsciiPainter::Lexer do
   let(:instance) { described_class.new }
 
-  let(:terminate_session_tokens) { ["X"] }
-  let(:clear_canvas_tokens) { ["C"] }
+  let(:call_without_arguments_tokens) { %w{X} }
+  let(:call_with_arguments_tokens) { %w{I M N} }
 
-  let(:terminate_session_ast) { [:call, nil, :terminate_session] }
-  let(:clear_canvas_ast) { [:call, nil, :clear_canvas] }
+  let(:call_without_arguments_ast) {
+    [:call, nil, :X, [:arglist]]
+  }
+  let(:call_with_arguments_ast) {
+    [:call, nil, :I, [:arglist, [:val, "M"], [:val, "N"]] ]
+  }
 
 
   context "#analyse" do
-    context "command X" do
+
+    context "call without arguments" do
       it "returns correct AST" do
-        expect( instance.analyse(terminate_session_tokens) ).to eq terminate_session_ast
+        expect(
+          instance.analyse(call_without_arguments_tokens)
+        ).to eq call_without_arguments_ast
       end
     end
+
+    context "call with arguments" do
+      it "returns correct AST" do
+        expect(
+          instance.analyse(call_with_arguments_tokens)
+        ).to eq call_with_arguments_ast
+      end
+    end
+
   end
 end
